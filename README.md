@@ -1,20 +1,19 @@
 # Overview
-This library uses the Arduino Serial library to communicate with a DALY BMS over UART. It was originally designed for use with the **Teensy 4.0** as a part of [this project](https://github.com/maland16/citicar-charger) and has been tested on official Arduino hardware. 
+This library uses the Arduino Serial library to communicate with a BMS over UART. It was originally designed for use with the **Teensy 4.0** as a part of [this project](https://github.com/maland16/citicar-charger) and has been tested on official Arduino hardware. 
 
 ## How to use this library  
 -Download a zip of this library using the green button above  
 -Follow [the instructions here](https://www.arduino.cc/en/guide/libraries) under "Manual installation"  
--Use the public functions defined in "daly-bms-uart.h" to read data from the BMS and populate the "get" struct   
--Don't forget to construct a Daly_BMS_UART object and Init()!  
+-Use the public functions defined in "bms-uart.h" to read data from the BMS and populate the "get" struct   
+-Don't forget to construct a BMS_UART object and Init()!  
 -See the example that's included in this library  
 
 ## Hardware setup
-Below is a picture of the side of my DALY bms (yours might look slightly different) showing which pins are used to communicate over UART. 
+Below is a picture of the side of the bms showing which pins are used to communicate over UART, the black one is the common ground with the main board, the green is the RX and the white one is the TX. 
 <img src="docs/IMG_13A3026BD082-1.jpeg">
-I used this library on a teensy 4.0, who's serial pins are only 3V tolerant, so I also used [this logic level shifter](https://www.adafruit.com/product/757) to bring the logic level up to 5V, which is what I observed while using the PC UART USB adapter included with the BMS.
 
-## The DALY BMS UART Protocol
-I found the UART Protocol used by the Daly BMS described in the PDF inside /docs/ on [diysolarform.com.](https://diysolarforum.com/resources/daly-smart-bms-manual-and-documentation.48/) It can be a little tough to decipher, so here's a brief overview.
+## The BMS UART Protocol
+The UART Protocol used by the BMS is described in the PDF inside /docs/. Here's a brief overview.
 
 Here's what an outgoing packet will look like. It's always fixed 13 bytes, and the reference manual from Daly doesn't mention anything about how to write data so the "Data" section of outgoing packets is just always going to be 0. See "Future Improvements" below for more on this.
 | Start Byte      | Host Address | Command ID | Data Length | Data | Checksum | 
@@ -39,7 +38,7 @@ Here's an overview of the commands that are supported by this library. See the f
 | - | - | - |
 | Voltage, Current, SOC | 0x90 | getPackMeasurements() |  
 | Min & Max Cell Voltages | 0x91 | getMinMaxCellVoltage() |  
-| Min & Max Temp Sensor readings | 0x92 | getPackTemp() will take the min and max temperature readings, average them, and return that value. Most of the DALY BMSs that I've seen only have one temperature sensor. |  
+| Min & Max Temp Sensor readings | 0x92 | getPackTemp() will take the min and max temperature readings, average them, and return that value. Most of the  BMSs that I've seen only have one temperature sensor. |  
 | Charge/Discharge MOSFET state | 0x93 | getDischargeChargeMosStatus() |
 | Status Information 1 | 0x94 | getStatusInfo() |
 | Individual Cell Voltages | 0x95 | getCellVoltages() |
@@ -49,10 +48,9 @@ Here's an overview of the commands that are supported by this library. See the f
 
 
 ## Troubleshooting
-- The BMS has no internal power source, and needs to be connected to the battery for the UART communication to work.
+- The BMS has no internal power source, and needs to be connected to the battery for the UART communication to work, in addi ction the bvattery need to be wake up with a small charge current.
 - Make sure your Tx/Rx aren't mixed up, in the picture above Tx/Rx are labeled with respect to the BMS.  
 - I could not have made this work/debugged this without a logic analyzer hooked up to the UART lines to see what's going on. They can be had pretty cheaply and are an invaluable tool for working on these kinds of things.  
-- Uncomment [this define](https://github.com/maland16/daly-bms-uart/blob/main/daly-bms-uart.h#L8) and set your Serial port to get lots of debug printing to the Arduino Serial Monitor. I added these statements to help as I developed the code and ran into issues. Beyond that, I've done my best to comment extensively.  
 
 ## Future Improvements
 ### Clean up/corrections  
