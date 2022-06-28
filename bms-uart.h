@@ -1,5 +1,5 @@
-#ifndef DALY_BMS_UART_H
-#define DALY_BMS_UART_H
+#ifndef BMS_UART_H
+#define BMS_UART_H
 
 #define XFER_BUFFER_LENGTH 13
 #define MIN_NUMBER_CELLS 1
@@ -7,7 +7,7 @@
 #define MIN_NUMBER_TEMP_SENSORS 1
 #define MAX_NUMBER_TEMP_SENSORS 16
 
-class Daly_BMS_UART
+class BMS_UART
 {
 public:
     enum COMMAND
@@ -149,11 +149,11 @@ public:
     } alarm;
 
     /**
-     * @brief Construct a new Daly_BMS_UART object
+     * @brief Construct a new BMS_UART object
      *
      * @param serialIntf UART interface BMS is connected to
      */
-    Daly_BMS_UART(HardwareSerial &serialIntf);
+    BMS_UART(HardwareSerial &serialIntf);
 
     /**
      * @brief Initializes this driver
@@ -292,4 +292,4 @@ private:
     uint8_t my_rxBuffer[XFER_BUFFER_LENGTH];
 };
 
-#endif // DALY_BMS_UART_H
+#endif // BMS_UART_H
