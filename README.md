@@ -10,7 +10,7 @@ This library uses the Arduino Serial library to communicate with a DALY BMS over
 
 ## Hardware setup
 Below is a picture of the side of my DALY bms (yours might look slightly different) showing which pins are used to communicate over UART. 
-<img src="https://raw.githubusercontent.com/maland16/daly-bms-uart/main/docs/UART%20Interface.jpg">
+<img src="docs/IMG_13A3026BD082-1.jpeg">
 I used this library on a teensy 4.0, who's serial pins are only 3V tolerant, so I also used [this logic level shifter](https://www.adafruit.com/product/757) to bring the logic level up to 5V, which is what I observed while using the PC UART USB adapter included with the BMS.
 
 ## The DALY BMS UART Protocol
