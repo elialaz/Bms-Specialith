@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-#include <daly-bms-uart.h> // This is where the library gets pulled in
+#include <bms-uart.h> // This is where the library gets pulled in
 
 #define BMS_SERIAL Serial1 // Set the serial port for communication with the Daly BMS
                            // Set the Serial Debug port
@@ -8,7 +8,7 @@
 // To print debug info from the inner workings of the library, see the README
 
 // Construct the BMS driver and passing in the Serial interface (which pins to use)
-Daly_BMS_UART bms(BMS_SERIAL);
+BMS_UART bms(BMS_SERIAL);
 
 void setup()
 {
@@ -64,10 +64,10 @@ void loop()
 }
 
 /*
-#include <daly-bms-uart.h> // This is where the library gets pulled in
+#include <bms-uart.h> // This is where the library gets pulled in
 
 // Constructing the bms driver and passing in the Serial interface (which pins to use)
-Daly_BMS_UART bms(Serial1);
+BMS_UART bms(Serial1);
 
 void setup()
 {
