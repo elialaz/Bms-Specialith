@@ -28,7 +28,7 @@ This is what an incoming packet from the BMS might look like. In this case it's 
 \*It's not made totally clear in the protocol description but the received data length might actually be longer for certain commands. Reading all cell voltages & all temperature sensor readings for instance results in a response with a much longer data section.  
 
 #### Data section
-The first two bytes of the Data correspond to the Voltage in tenths of volts (0x023A = 570 = 57.0V). I'm honestly not sure what the next two bytes are for, the documentation calls them "acquisition voltage". They always come back 0 for me so lets skip them. The next two bytes are the current in tenths of amps, with an offset of 30000 (0x7530 = 300000 - 30,000 = 0 = 0.0A). The final two bytes are the state of chare (or SOC) in tenths of a percent (0x01ED = 493 = 49.3%).   
+The first two bytes of the Data correspond to the Voltage in tenths of volts (0x023A = 570 = 57.0V). I'm honestly not sure what the next two bytes are for, the documentation calls them "acquisition voltage". They always come back 0 for me so lets skip them. The next two bytes are the current in tenths of amps, with an offset of 30000 (0x7530 = 30000 - 30000 = 0 = 0.0A). The final two bytes are the state of chare (or SOC) in tenths of a percent (0x01ED = 493 = 49.3%).   
 #### Checksum
 The last byte of the packet is a checksum, which is calculated by summing up all the rest of the bytes in the packet and truncating the result to one byte. (0xA5 + 0x01 + 0x90 + ... + 0xED = 0x30D = 0x0D).  
 
