@@ -9,7 +9,7 @@ This library uses the Arduino Serial library to communicate with a BMS over UART
 -See the example that's included in this library  
 
 ## Hardware setup
-Below is a picture of the side of the bms showing which pins are used to communicate over UART, the black one is the common ground with the main board, the green is the RX and the white one is the TX. The BMS communicate over the USB with a 5V TTL but it's possible (not recommended) to communicate just fine with a 3.3V logic high level, see this [discussion](https://github.com/maland16/daly-bms-uart/discussions/23#discussion-5399289).
+Below is a picture of the side of the bms showing which pins are used to communicate over UART, the black one is the common ground with the main board, the green is the RX and the white one is the TX. The BMS communicate over the USB with a 5V TTL but it's possible to communicate just fine with a 3.3V logic high level, see this [discussion](https://github.com/maland16/daly-bms-uart/discussions/23#discussion-5399289).
 <img src="docs/IMG_13A3026BD082-1.jpeg">
 
 ## The BMS UART Protocol
