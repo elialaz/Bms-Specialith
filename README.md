@@ -9,21 +9,21 @@ This library uses the Arduino Serial library to communicate with a BMS over UART
 -See the example that's included in this library  
 
 ## Hardware setup
-Below is a picture of the side of the bms showing which pins are used to communicate over UART, the black one is the common ground with the main board, the green is the RX and the white one is the TX. 
+Below is a picture of the side of the bms showing which pins are used to communicate over UART, the black one is the common ground with the main board, the green is the RX and the white one is the TX. The BMS communicate over the USB with a 5V TTL but it's possible (not recommended) to communicate just fine with a 3.3V logic high level, see this [discussion](https://github.com/maland16/daly-bms-uart/discussions/23#discussion-5399289).
 <img src="docs/IMG_13A3026BD082-1.jpeg">
 
 ## The BMS UART Protocol
 The UART Protocol used by the BMS is described in the PDF inside /docs/. Here's a brief overview.
 
-Here's what an outgoing packet will look like. It's always fixed 13 bytes, and the reference manual from Daly doesn't mention anything about how to write data so the "Data" section of outgoing packets is just always going to be 0. See "Future Improvements" below for more on this.
+Here's what an outgoing packet from your hardware to the BMS will look like. It's always fixed 13 bytes, and the reference manual from Daly doesn't mention anything about how to write data so the "Data" section of outgoing packets is just always going to be 0. See "Future Improvements" below for more on this.
 | Start Byte      | Host Address | Command ID | Data Length | Data | Checksum | 
 | - | - | - | - | - | - | 
-| 0xA5 | 0x80 | See below | 0x08 (fixed) | 0x0000000000000000 (8 bytes) | See below |
+| 0xA5 | 0x40 | See below | 0x08 (fixed) | 0x0000000000000000 (8 bytes) | (See below) |
 
-This is what an incoming packet might look like. In this case it's the "Voltage, Current, and SOC" command. 
+This is what an incoming packet from the BMS might look like. In this case it's the "Voltage, Current, and SOC" command. 
 | Start Byte      | Host Address | Command ID | Data Length | Data | Checksum | 
 | - | - | - | - | - | - | 
-| 0xA5 | 0x01 | 0x90 (see below) | 0x08 (fixed?*) | 0x023A0000753001ED (8 bytes) | 0x0D (See below) |
+| 0xA5 | 0x01 | 0x90 (see below) | 0x08 (fixed) | 0x023A0000753001ED (8 bytes) | 0x0D (See below) |
 
 \*It's not made totally clear in the protocol description but the received data length might actually be longer for certain commands. Reading all cell voltages & all temperature sensor readings for instance results in a response with a much longer data section.  
 
